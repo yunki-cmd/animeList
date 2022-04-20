@@ -10,11 +10,11 @@ function Search() {
   const [datos, setdatos] = useState([]);
 
   useEffect(() => {
-    console.log("renderrr");
+    console.log(JSON.parse(sessionStorage.getItem("resultados")));
     if (sessionStorage.getItem("resultados") !== null) {
       setdatos(JSON.parse((sessionStorage.getItem("resultados"))));
     }
-  },[buscar]);
+  },[]);
   
 
   const handlerSearch = (e) => {
