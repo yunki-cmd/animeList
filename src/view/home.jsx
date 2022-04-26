@@ -7,7 +7,7 @@ function home() {
 
 
   return (
-    <Search />
+   <Search />
   );
 }
 
