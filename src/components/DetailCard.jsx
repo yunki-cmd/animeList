@@ -1,49 +1,74 @@
+import {useLazyQuery} from "@apollo/client";
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 
-import { convertFecha } from "../utiles/utiles";
+
+import { ANIME_BY_ID} from "../GraphQL/index";
+import Cards from "./Cards";
 import Play from "./play";
+
 
 function DetailCards() {
   
   const { id } = useParams();
-  const [animeDetail, setAnimalDetail] = useState([]);
+  const [animeDetail, setAnimalDetail] = useState(undefined);
+  const [getAnimeByID,] = useLazyQuery(ANIME_BY_ID, { variables: { id } });
 
   useEffect(() => {
     const cacheDatos = JSON.parse(sessionStorage.getItem("resultados"));
+    setAnimalDetail(cacheDatos.find(item => item.id == id));
+    if (animeDetail === undefined) {
+      getAnimeByID()
+        .then(resp => {
+          console.log(resp.data.Media);
+          sessionStorage.setItem("details", resp);
+          setAnimalDetail(resp.data.Media);
+        });
+    }
 
-    setAnimalDetail(cacheDatos.find(item => item.anilist_id == id));
+  }, [id, getAnimeByID]);
 
-  }, [id]);
-
-  if (animeDetail.length === 0) {
+  if (animeDetail === undefined) {
     return (<div><h1>Loading...</h1></div>);
   }
 
     return (
-      <div>
-
-          <div className="max-w-lg h-auto my-5 break-inside-avoid bg-white rounded-lg border border-gray-200 shadow-md dark:bg-gray-800 dark:border-gray-700 flex flex-col">
-            <span className="m-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white text-center">{animeDetail.titles.en}</span>
-            <div className="p-5">
-              <div className="float-left">
-                <img className="rounded-lg m-2 object-contain" src={animeDetail.cover_image} alt={animeDetail.titles.en} />
-              </div>
-              <p className="m-3 font-normal text-gray-700 dark:text-gray-400" dangerouslySetInnerHTML={{ __html: animeDetail.descriptions.en }} />
-            </div>
-            <div>
-              {/*         <div className="flex flex-col m-2">
-          <ul>
-            {geners.map(genero => <li className="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2" key={genero}>{genero}</li>)}
-          </ul>
-        </div> */}
-            </div>
-            {animeDetail.trailer_url !== undefined ? <Play video={animeDetail.trailer_url} title={animeDetail.titles.en} banner={animeDetail.banner_image} /> : null}
-          </div> 
+      <div className="grid grid-cols-3 gird-row-cols-3">
+        <div className="col">
+          <div>
+            <img src={animeDetail.coverImage.medium} alt={animeDetail.title.english} />
+          </div>
+          <div className="flex flex-col">
+            <span>Altenative title</span>
+            {Object.entries(animeDetail.title).map(element => {
+              if (element[0] !== '__typename') return <span className="capitalize">{element[0]} 	&rarr; {element[1]}</span>;
+              return null;
+            })}
+          </div>
+        </div>
+        <div>
+        body
+        </div>
+        <div>
+        header
+        </div>
       </div>
     );
   
 }
 
-
+{/* <Cards
+  id={animeDetail.id}
+  key={animeDetail.id}
+  titles={animeDetail.title}
+  descriptions={animeDetail.description}
+  cover_image={animeDetail.coverImage.large}
+  vieo={animeDetail.trailer}
+  banner={animeDetail.bannerImage}
+  start_date={animeDetail.startDate}
+  end_date={animeDetail.endDate}
+  geners={animeDetail.genres}
+  type={animeDetail.type}
+/>
+{ animeDetail.trailer_url !== undefined ? <Play video={animeDetail.trailer_url} title={animeDetail.titles.en} banner={animeDetail.banner_image} /> : null } */}
 export default DetailCards;

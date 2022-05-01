@@ -1,21 +1,11 @@
-import { useState, useEffect } from "react";
-
-import { getSearchResult } from "../services/getResultSearch";
-import { ListCards } from "./listCards";
+import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 function Search() {
   
+  const history = useNavigate();
   const [busqueda, setBusqueda] = useState("");
-  const [buscar, setBuscar] = useState(false);
-  const [datos, setdatos] = useState([]);
 
-  useEffect(() => {
-    console.log(JSON.parse(sessionStorage.getItem("resultados")));
-    if (sessionStorage.getItem("resultados") !== null) {
-      setdatos(JSON.parse((sessionStorage.getItem("resultados"))));
-    }
-  },[]);
-  
 
   const handlerSearch = (e) => {
     setBusqueda(e.target.value);
@@ -23,14 +13,7 @@ function Search() {
 
   const handlerbuscar = (e) => {
     e.preventDefault();
-    getSearchResult({ query: busqueda})
-      .then(resp => resp.json())
-      .then(resp => {
-        if (resp.status_code !== 404) {
-          sessionStorage.setItem("resultados", JSON.stringify(resp.data.documents));
-          setdatos(resp.data.documents);
-        }
-      });
+    history(`/search/${  busqueda}`);
   };
 
    return (
@@ -45,9 +28,6 @@ function Search() {
            </div>
          </div>
        </form>
-       <div>
-       {datos.length > 0 ? <ListCards data={datos}/> : "No hay datos"}
-       </div>
     </div>
    );
    

@@ -1,16 +1,22 @@
 import { Routes, Route } from "react-router-dom";
 
 import DetailsCard from "./components/DetailCard";
-import Search from "./components/search";
+import Header from "./components/header/header";
+import Result from "./components/result";
 import Home from "./view/home";
 
 function App() {
   return (
-    <Routes>
+    <>
+      <Header />
+      <Routes>
       <Route path="/" element={<Home />} />
-      <Route path="/search/:id" element={<Search />} />
       <Route path="/details/:id" element={<DetailsCard />} />
-    </Routes>
+      <Route path="/search/" element={<Result />}>
+          <Route path=":id" element={<Result />} />
+      </Route>
+      </Routes>
+    </>
   );
 }
 
