@@ -14,7 +14,9 @@ query getAnimeByID($id: Int) { # Define which variables will be used in the quer
   Media(id: $id) {
     id
     title {
-      english
+     romaji
+     english
+     native
     }
     type
     format
