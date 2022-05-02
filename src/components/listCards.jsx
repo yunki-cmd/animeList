@@ -5,7 +5,7 @@ import Cards from "./Cards";
 export function ListCards({ data = [] }) {
 
   return (
-    <div className="columns-auto sm:columns-1 md:columns-2 lg:columns-4  xl:columns-5 gap-3 m-2 ">
+    <div className="columns-auto sm:columns-1 md:columns-2 lg:columns-3  xl:columns-4 gap-3 m-2 ">
       {data.length > 0 ? data.map(element => (
         <Cards
         id={element.id}  
