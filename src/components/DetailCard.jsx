@@ -4,7 +4,6 @@ import { useParams } from "react-router-dom";
 
 import { ANIME_BY_ID} from "../GraphQL/index";
 import {convertFecha } from "../utiles/utiles";
-import Cards from "./Cards";
 import Play from "./play";
 
 
@@ -32,11 +31,11 @@ function DetailCards() {
   return (
     <article>
       <header>
-        <h2 className="font-bold text-2xl m-2 font-mono bg-slate-400">
+        <h1 className="font-bold text-2xl m-2 font-mono bg-slate-400">
         {animeDetail.title.english}
-        </h2>
+        </h1>
       </header>
-      <div className="grid grid-cols-4 gird-row-cols-4 gap-3">
+      <section className="grid grid-cols-4 gird-row-cols-4 gap-3">
         <div className="col">
           <div>
             <img src={animeDetail.coverImage.large} alt={animeDetail.title.english} />
@@ -53,8 +52,10 @@ function DetailCards() {
               {
               animeDetail.synonyms.length > 0 && animeDetail.synonyms.map(element => <li key={generatorID() + element}>{element}</li>)}</ul>}
           </div>
-          <div>
-            <span>Information</span>
+          <section>
+            <header>
+            <h3>Information</h3>
+            </header>
             <div className="flex flex-col">
               <div>
               <span>Type</span>: <span>{animeDetail.type}</span>
@@ -80,13 +81,20 @@ function DetailCards() {
                   {animeDetail.genres.map(element => <li>{element}</li>)}
                 </ul>
               </div>
+              <div>
+                <ul>
+                  <span>tags: </span>
+                  {animeDetail.tags.map(element => <li>{element.name}</li>)}
+                </ul>
+              </div>
             </div>
-          </div>
+          </section>
+
         </div>
         <div className="col-span-3">
         body
         </div>
-      </div>
+      </section>
   </article >
     );
   
