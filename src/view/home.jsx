@@ -1,7 +1,7 @@
 import { useQuery } from "@apollo/client";
 import { useEffect } from "react";
 
-import ListCards from "../components/listCards";
+import { ListCards } from "../components/listCards";
 import { ANIME_TRENDINGS_EMISSION } from "../GraphQL/index";
 
 

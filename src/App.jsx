@@ -11,7 +11,11 @@ function App() {
       <Header />
       <Routes>
       <Route path="/" element={<Home />} />
-      <Route path="/details/:id" element={<DetailsCard />} />
+        <Route path="/anime/:id" element={<DetailsCard />} >
+          <Route path="/anime/:id" element={<h1>hola</h1>} />
+          <Route path="/anime/:id/details" element={<h1>hola</h1>} />
+          <Route path="/anime/:id/characters" element={<h1>characters</h1>} />
+      </Route>
       <Route path="/search/" element={<Result />}>
           <Route path=":id" element={<Result />} />
       </Route>

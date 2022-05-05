@@ -1,10 +1,10 @@
+/* eslint-disable no-console */
 import {useLazyQuery} from "@apollo/client";
-import { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useEffect, useState,useRef } from "react";
+import { useParams, Outlet, Link, useLocation  } from "react-router-dom";
 
 import { ANIME_BY_ID} from "../GraphQL/index";
 import {convertFecha } from "../utiles/utiles";
-import Play from "./play";
 
 
 function DetailCards() {
@@ -12,17 +12,23 @@ function DetailCards() {
   const { id } = useParams();
   const [animeDetail, setAnimalDetail] = useState(undefined);
   const [getAnimeByID,] = useLazyQuery(ANIME_BY_ID, { variables: { id } });
+  const location = useLocation();
+  const isActive = useRef();
 
   useEffect(() => {
       getAnimeByID()
         .then(resp => {
-          console.log(resp);
           sessionStorage.setItem("details", resp);
           setAnimalDetail(resp.data.Media);
         });
   }, [id, getAnimeByID]);
 
   const generatorID = () => Math.round(Math.random() * 1000);
+
+  const setActive = (e) => {
+    console.log(isActive.current);
+    console.log(e.target);
+  };
 
   if (animeDetail === undefined || animeDetail === null) {
     return (<div><h1>Loading...</h1></div>);
@@ -89,11 +95,46 @@ function DetailCards() {
               </div>
             </div>
           </section>
-
+          <section>
+            <span>Static</span>
+            <div>
+              <span>Score: </span>
+              {animeDetail.meanScore}
+            </div>
+            <div>
+              <span>popularity: </span>
+              {animeDetail.popularity}
+            </div>
+            <div>
+              <span>favourites: </span>
+              {animeDetail.favourites}
+            </div>
+          </section>
+          <section>
+            <span>External Link</span>
+            <div>
+            <a href={ animeDetail.siteUrl}> aniList</a>
+            </div>
+          </section>
         </div>
-        <div className="col-span-3">
-        body
-        </div>
+        <article className="col-span-3">
+          <header>
+            <nav>
+              <ul className="flex gap-3 justify-evenly" ref={isActive}>
+                <Link onClick={setActive} to={decodeURIComponent(`details`)} >
+                  <li>details</li>
+                </Link>
+                <Link onClick={setActive} to={decodeURIComponent(`characters`)} >
+                  <li>chracter & stafs</li>
+                </Link>
+                <li>Episodes</li>
+                <li>stats</li>
+                <li>Opening & Endign</li>
+              </ul>
+            </nav>
+          </header>
+          <Outlet />
+        </article>
       </section>
   </article >
     );

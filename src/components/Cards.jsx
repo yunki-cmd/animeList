@@ -28,7 +28,7 @@ function Cards({ titles, descriptions, cover_image, id,type}) {
         </div>
         <p className="m-3 font-normal text-gray-700 dark:text-gray-400" dangerouslySetInnerHTML={{ __html: shortDescription(descriptions) }} />
         <Link to={{
-          pathname: `/details/${id}`
+          pathname: `/anime/${id}`
         }}><button type="button" className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">Ir a  detalle</button></Link>
       </div>
     </div>
