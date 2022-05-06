@@ -1,7 +1,7 @@
 import { useState } from "react";
 import ReactPlayer from 'react-player';
 
-function Play({ video = "", title, banner = "",}) {
+function Play({ video = "https://www.youtube.com/", title = "title", banner = "img",}) {
   
   const [play, setPlay] = useState(false);
 

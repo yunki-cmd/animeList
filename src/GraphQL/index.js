@@ -72,6 +72,7 @@ query getAnimeByID($id: Int) { # Define which variables will be used in the quer
       userId
     }
     isAdult
+    favourites
     rankings {
       id
       rank
