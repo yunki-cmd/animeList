@@ -127,13 +127,19 @@ function DetailCards() {
                 <Link onClick={setActive} to={decodeURIComponent(`characters`)} >
                   <li>chracter & stafs</li>
                 </Link>
-                <li>Episodes</li>
-                <li>stats</li>
-                <li>Opening & Endign</li>
+                <Link onClick={setActive} to={decodeURIComponent(`episodes`)} >
+                  <li>Episodes</li>
+                </Link>
+                <Link onClick={setActive} to={decodeURIComponent(`statics`)} >
+                  <li>stats</li>
+                </Link>
+                <Link onClick={setActive} to={decodeURIComponent(`soundtrack`)} >
+                  <li>Opening & Endign</li>
+                </Link>
               </ul>
             </nav>
           </header>
-          <Outlet />
+          <Outlet context={[animeDetail,setAnimalDetail]} />
         </article>
       </section>
   </article >
