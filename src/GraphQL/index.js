@@ -94,6 +94,36 @@ query getAnimeByID($id: Int) { # Define which variables will be used in the quer
 }
 `;
 
+export const ANIME_RELATION_BY_ID = gql`
+query getAnimeRelation($mediaId: Int, $type: MediaType) {
+    Media(id: $mediaId, type: $type) {
+      id
+      relations {
+        edges {
+          id
+          node {
+            id
+            title {
+              romaji
+              english
+              native
+              userPreferred
+            }
+            type
+            bannerImage
+            coverImage {
+              extraLarge
+              large
+              color
+              medium
+            }
+          }
+          relationType
+        }
+      }
+    }
+}`;
+
 export const ANIME_TRENDINGS_EMISSION = gql `
 query {
   Page(page: 1, perPage: 25) {

@@ -84,13 +84,13 @@ function DetailCards() {
               <div>
                 <ul>
                   <span>Geners: </span>
-                  {animeDetail.genres.map(element => <li>{element}</li>)}
+                  {animeDetail.genres.map(element => <li key={element}>{generatorID() + element}</li>)}
                 </ul>
               </div>
               <div>
                 <ul>
                   <span>tags: </span>
-                  {animeDetail.tags.map(element => <li>{element.name}</li>)}
+                  {animeDetail.tags.map(element => <li key={generatorID() + element.name}>{element.name}</li>)}
                 </ul>
               </div>
             </div>
@@ -146,19 +146,4 @@ function DetailCards() {
     );
   
 }
-
-/* <Cards
-  id={animeDetail.id}
-  key={animeDetail.id}
-  titles={animeDetail.title}
-  descriptions={animeDetail.description}
-  cover_image={animeDetail.coverImage.large}
-  vieo={animeDetail.trailer}
-  banner={animeDetail.bannerImage}
-  start_date={animeDetail.startDate}
-  end_date={animeDetail.endDate}
-  geners={animeDetail.genres}
-  type={animeDetail.type}
-/>
-{ animeDetail.trailer_url !== undefined ? <Play video={animeDetail.trailer_url} title={animeDetail.titles.en} banner={animeDetail.banner_image} /> : null } */
 export default DetailCards;
