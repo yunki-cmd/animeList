@@ -176,12 +176,16 @@ query {
 
 
 export const SEARCH_ANIME = gql `
-query searchAnime($search: String, $page: Int, $perPage: Int) {
+query searchAnime($page: Int, $perPage: Int, $search: String, $startDateGreater:
+    FuzzyDateInt, $endDateLesser: FuzzyDateInt, $formatIn: [MediaFormat],
+    $statusIn: [MediaStatus], $genreIn: [String]) {
   Page(page: $page, perPage: $perPage) {
     pageInfo {
       total perPage currentPage lastPage hasNextPage
     }
-    media(search: $search) {
+    media(search: $search,startDate_greater: $startDateGreater, endDate_lesser:
+        $endDateLesser,
+        format_in: $formatIn, status_in: $statusIn, genre_in: $genreIn) {
       id
       description
       title {

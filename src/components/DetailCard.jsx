@@ -1,7 +1,7 @@
 /* eslint-disable no-console */
 import {useLazyQuery} from "@apollo/client";
 import { useEffect, useState,useRef } from "react";
-import { useParams, Outlet, Link, useLocation  } from "react-router-dom";
+import { useParams, Outlet, Link  } from "react-router-dom";
 
 import { ANIME_BY_ID} from "../GraphQL/index";
 import {convertFecha } from "../utiles/utiles";
@@ -12,7 +12,6 @@ function DetailCards() {
   const { id } = useParams();
   const [animeDetail, setAnimalDetail] = useState(undefined);
   const [getAnimeByID,] = useLazyQuery(ANIME_BY_ID, { variables: { id } });
-  const location = useLocation();
   const isActive = useRef();
 
   useEffect(() => {

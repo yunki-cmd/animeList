@@ -2,8 +2,6 @@ import {
   ApolloClient,
   InMemoryCache,
   ApolloProvider,
-  useQuery,
-  gql
 } from "@apollo/client";
 import React from 'react';
 import ReactDOM from 'react-dom';
@@ -24,7 +22,7 @@ ReactDOM.render(
   <React.StrictMode>
     <ApolloProvider client={client}>
       <BrowserRouter>
-        <App />
+          <App />
       </BrowserRouter>
     </ApolloProvider>
   </React.StrictMode>,

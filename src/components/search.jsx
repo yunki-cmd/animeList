@@ -13,7 +13,7 @@ function Search() {
 
   const handlerbuscar = (e) => {
     e.preventDefault();
-    history(`/search/${  busqueda}`);
+    history(`/search/${ busqueda}`);
   };
 
    return (
