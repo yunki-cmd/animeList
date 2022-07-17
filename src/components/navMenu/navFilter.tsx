@@ -10,10 +10,11 @@ interface propsNav {
   visible: boolean
   elements: string | "Todos",
   setFilter: (e:any) => void,
-  handlerClickVisbible: (e:any) => void
+  handlerClickVisbible: (e: any) => void,
+  className?: string
 }
 
-export default function NavFilter({ filtros, filter, title = "", visible = false, elements = "Todos", setFilter, handlerClickVisbible }: propsNav) {
+export default function NavFilter({ filtros, filter, title = "", visible = false, elements = "Todos", setFilter, handlerClickVisbible, className }: propsNav) {
 
   const [filtro, ] = useState<string[]>(filtros);
   const [filtrados, setFiltrados] = useState<String[]>(filter);
@@ -32,7 +33,7 @@ export default function NavFilter({ filtros, filter, title = "", visible = false
   }, [filtrados, setFilter]);
 
   return (
-    <div onClick={handlerClickVisbible} className="bg-white text-gray-800 py-2 px-4 border rounded cursor-pointer">
+    <div onClick={handlerClickVisbible} className={`bg-white text-gray-800 py-2 px-4 border rounded cursor-pointer ${className}`}>
       <span onClick={handlerClickVisbible} className="mx-2 text-zinc-400">{title}:</span>
       <span onClick={handlerClickVisbible} >{elements}</span>
       <ul className={visible ? "absolute z-20 bg-white h-auto w-1/2 left-1/4 mt-2 border rounded cursor-pointer" : "absolute z-20 bg-white h-auto w-1 /2 hidden left-1/4 mt-2"} >

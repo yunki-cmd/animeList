@@ -5,7 +5,7 @@ import { useParams, Outlet, Link  } from "react-router-dom";
 
 import { ANIME_BY_ID} from "../GraphQL/index";
 import { convertFecha, } from "../utiles/utiles"
-type GenericObject = Record<any, any>;
+
 
 function DetailCards() {
   
@@ -17,7 +17,6 @@ function DetailCards() {
   useEffect(() => {
       getAnimeByID()
         .then(resp => {
-          console.log(resp)
           sessionStorage.setItem("details",resp.data.Media);
           setAnimalDetail( resp.data.Media);
         });
@@ -30,7 +29,7 @@ function DetailCards() {
     console.log(e.target);
   };
 
-  if (animeDetail === undefined || animeDetail === null) {
+  if (animeDetail == null) {
     return (<div><h1>Loading...</h1></div>);
   }
 

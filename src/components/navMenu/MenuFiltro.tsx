@@ -75,7 +75,6 @@ function MenuFiltro() {
 
     let filter = "/search?";
     filter = filterGenero.length > 0 ? filter.concat("gener=").concat(filterGenero.join(",")) : "";
-    console.log(filter);
     history(filter);
     console.log(
       filterGenero,
@@ -85,8 +84,9 @@ function MenuFiltro() {
   };
 
   return (<section className="mx-auto w-1/2">
-    <form action="" className="flex flex-wrap justify-between">
+    <form className="flex flex-wrap justify-between">
       <NavFilter
+        className="my-2"
         filtros={genero}
         filter={filterGenero}
         setFilter={setFilterGenero}
@@ -95,6 +95,7 @@ function MenuFiltro() {
         title="Genero"
         elements={formaterElements(filterGenero)} />
       <NavFilter
+        className="my-2"
         filtros={anos}
         filter={filterAnos}
         setFilter={setfilterAnos}
@@ -103,6 +104,7 @@ function MenuFiltro() {
         handlerClickVisbible={handlerClickano}
         elements={formaterElements(filterAnos)} />
       <NavFilter
+        className="my-2"
         filtros={format}
         filter={filterformat}
         setFilter={setfilterformat}
@@ -111,6 +113,7 @@ function MenuFiltro() {
         handlerClickVisbible={handlerClickType}
         elements={formaterElements(filterformat)}/>
       <NavFilter
+        className="my-2"
         filtros={status}
         filter={filterStatus}
         setFilter={setfilterStatus}
