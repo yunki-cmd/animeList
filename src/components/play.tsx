@@ -1,15 +1,15 @@
-import { useState } from "react";
 import ReactPlayer from 'react-player';
 
-function Play({ video = "https://www.youtube.com/", title = "title", banner = "img",}) {
+interface props {
+  video?: string,
+  title?: string,
+  banner?: string
+
+}
+
+
+function Play({ video = "https://www.youtube.com/", title = "title", banner = "img",} : props) {
   
-  const [play, setPlay] = useState(false);
-
-
-
-  const handlerPlayVideo = () => {
-    setPlay(!play);
-  }; 
 
   return (
     <div className="rounded-2xl m-2 h-60">

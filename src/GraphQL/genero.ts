@@ -1,5 +1,5 @@
 /* eslint-disable import/prefer-default-export */
-export const genero = [
+export const genero:Array<string> = [
   "Action ",
   "Adventure",
   "Comedy",
@@ -20,7 +20,7 @@ export const genero = [
   "Thriller"
 ];
 
-export const anos = [
+export const anos: Array<string> = [
   "2022",
   "2021",
   "2020",
@@ -56,7 +56,7 @@ export const anos = [
   "1990"
 ];
 
-export const format = [
+export const format: Array<string> = [
   "TV",
   "TV_SHORT",
   "MOVIE",
@@ -69,7 +69,7 @@ export const format = [
   "ONE_SHOT"
 ];
 
-export const status = [
+export const status: Array<string> = [
   "FINISHED",
   "RELEASING",
   "NOT_YET_RELEASED",

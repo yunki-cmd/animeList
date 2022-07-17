@@ -1,3 +1,4 @@
+import * as React from "react";
 import { useState } from "react";
 import {useNavigate} from "react-router-dom";
 
@@ -8,10 +9,10 @@ function MenuFiltro() {
 
   const history = useNavigate();
 
-  const [filterGenero, setFilterGenero] = useState([]);
-  const [filterAnos, setfilterAnos] = useState([]);
-  const [filterformat, setfilterformat] = useState([]);
-  const [filterStatus, setfilterStatus] = useState([]);
+  const [filterGenero, setFilterGenero] = useState<string[]>([]);
+  const [filterAnos, setfilterAnos] = useState<string[]>([]);
+  const [filterformat, setfilterformat] = useState<string[]>([]);
+  const [filterStatus, setfilterStatus] = useState<string[]>([]);
   const [modalShow, setModalShow] = useState({
     genero: false,
     ano: false,
@@ -19,7 +20,7 @@ function MenuFiltro() {
     state: false
   });
 
-  const formaterElements = element => {
+  const formaterElements = (element:Array<any>) => {
     if (element.length > 2) {
       return `${element.length} Elementos`;
     }
@@ -27,7 +28,7 @@ function MenuFiltro() {
     return element.join(",");
   };
 
-  const handlerClickGenero = (e) => {
+  const handlerClickGenero = (e: React.MouseEvent<HTMLSpanElement, HTMLDivElement>) => {
     if (e.target === e.currentTarget) {
       setModalShow(prevState => ({
         genero: !prevState.genero,
@@ -39,7 +40,7 @@ function MenuFiltro() {
   };
 
 
-  const handlerClickano = (e) => {
+  const handlerClickano = (e: React.MouseEvent<HTMLSpanElement, HTMLDivElement>) => {
       if (e.target === e.currentTarget) {
         setModalShow(prevState => ({
           genero: prevState.genero ? !prevState.genero : prevState.genero,
@@ -49,7 +50,7 @@ function MenuFiltro() {
         }));
       }
   }; 
-  const handlerClickType = (e) => {
+  const handlerClickType = (e: React.MouseEvent<HTMLSpanElement, HTMLDivElement>) => {
     if (e.target === e.currentTarget) {
       setModalShow(prevState => ({
         genero: prevState.genero ? !prevState.genero : prevState.genero,
@@ -59,7 +60,7 @@ function MenuFiltro() {
       }));
     }
   }; 
-  const handlerClickStatus = (e) => {
+  const handlerClickStatus = (e:React.MouseEvent<HTMLSpanElement,HTMLDivElement>) => {
     if (e.target === e.currentTarget) {
       setModalShow(prevState => ({
         genero: prevState.genero ? !prevState.genero : prevState.genero,

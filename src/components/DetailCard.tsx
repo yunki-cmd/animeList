@@ -4,27 +4,28 @@ import { useEffect, useState,useRef } from "react";
 import { useParams, Outlet, Link  } from "react-router-dom";
 
 import { ANIME_BY_ID} from "../GraphQL/index";
-import {convertFecha } from "../utiles/utiles";
-
+import { convertFecha, } from "../utiles/utiles"
+type GenericObject = Record<any, any>;
 
 function DetailCards() {
   
   const { id } = useParams();
-  const [animeDetail, setAnimalDetail] = useState(undefined);
+  const [animeDetail, setAnimalDetail] = useState<any>();
   const [getAnimeByID,] = useLazyQuery(ANIME_BY_ID, { variables: { id } });
-  const isActive = useRef();
+  const isActive = useRef<HTMLUListElement>(null);
 
   useEffect(() => {
       getAnimeByID()
         .then(resp => {
-          sessionStorage.setItem("details", resp);
-          setAnimalDetail(resp.data.Media);
+          console.log(resp)
+          sessionStorage.setItem("details",resp.data.Media);
+          setAnimalDetail( resp.data.Media);
         });
   }, [id, getAnimeByID]);
 
-  const generatorID = () => Math.round(Math.random() * 1000);
+  const generatorID = ():string => Math.round(Math.random() * 1000).toString();
 
-  const setActive = (e) => {
+  const setActive = (e: React.MouseEvent<HTMLAnchorElement>) => {
     console.log(isActive.current);
     console.log(e.target);
   };
@@ -47,7 +48,7 @@ function DetailCards() {
           </div>
           <div className="flex flex-col">
             <span>Altenative title</span>
-            {Object.entries(animeDetail.title).map((element) => {
+            {Object.entries(animeDetail.title).map((element:any) => {
               if (element[0] !== '__typename') return <div key={element + generatorID()}><span className="capitalize font-bold">{element[0]}</span>: <span>{element[1]}</span></div>;
               return null;
             })}
@@ -55,7 +56,7 @@ function DetailCards() {
               animeDetail.synonyms.length > 0 && <ul>
                 <span className="font-bold">Others: </span>
               {
-              animeDetail.synonyms.length > 0 && animeDetail.synonyms.map(element => <li key={generatorID() + element}>{element}</li>)}</ul>}
+              animeDetail.synonyms.length > 0 && animeDetail.synonyms.map((element:any) => <li key={generatorID() + element}>{element}</li>)}</ul>}
           </div>
           <section>
             <header>
@@ -83,13 +84,13 @@ function DetailCards() {
               <div>
                 <ul>
                   <span>Geners: </span>
-                  {animeDetail.genres.map(element => <li key={element}>{generatorID() + element}</li>)}
+                  {animeDetail.genres.map((element:any) => <li key={element}>{generatorID() + element}</li>)}
                 </ul>
               </div>
               <div>
                 <ul>
                   <span>tags: </span>
-                  {animeDetail.tags.map(element => <li key={generatorID() + element.name}>{element.name}</li>)}
+                  {animeDetail.tags.map((element: any) => <li key={generatorID() + element.name}>{element.name}</li>)}
                 </ul>
               </div>
             </div>

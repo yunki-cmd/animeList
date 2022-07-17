@@ -3,15 +3,23 @@
 /* eslint-disable react/prop-types */
 import { useEffect, useState } from "react";
 
+interface propsNav {
+  filtros: Array<string>,
+  filter: string[],
+  title: string,
+  visible: boolean
+  elements: string | "Todos",
+  setFilter: (e:any) => void,
+  handlerClickVisbible: (e:any) => void
+}
 
-export default function NavFilter({ filtros = [], filter = [],title="",visible= false,elements = "Todos",...props }) {
+export default function NavFilter({ filtros, filter, title = "", visible = false, elements = "Todos", setFilter, handlerClickVisbible }: propsNav) {
 
-  const [filtro, ] = useState(filtros);
-  const [filtrados, setFiltrados] = useState(filter);
-  const { setFilter, handlerClickVisbible } = props;
+  const [filtro, ] = useState<string[]>(filtros);
+  const [filtrados, setFiltrados] = useState<String[]>(filter);
 
-  const handlerSelectGenero = (e) => {
-    const { value } = e.target;
+  const handlerSelectGenero = (e: React.MouseEvent<HTMLInputElement>) => {
+    const { value } = e.currentTarget;
     if ( filtrados.includes(value)) {
       setFiltrados(filtrados.filter(elem => elem !== value));
       } else {

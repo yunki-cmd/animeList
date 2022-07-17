@@ -1,23 +1,27 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
-function Search() {
+interface props {
+  className?: string;
+}
+
+function Search({ className = '' }: props) {
   
   const history = useNavigate();
-  const [busqueda, setBusqueda] = useState("");
+  const [busqueda, setBusqueda] = useState<string>("");
 
 
-  const handlerSearch = (e) => {
+  const handlerSearch = (e: React.ChangeEvent<HTMLInputElement>) => {
     setBusqueda(e.target.value);
   };
 
-  const handlerbuscar = (e) => {
+  const handlerbuscar = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     history(`/search/${ busqueda}`);
   };
 
    return (
-     <div>
+     <div className={`${className}`}>
        <form onSubmit={handlerbuscar}>
          <div className="flex justify-center m-2">
            <div className="mb-3 xl:w-96">

@@ -3,7 +3,7 @@ import { useState, useEffect, useContext } from "react";
 import { useParams, useSearchParams } from "react-router-dom";
 
 
-import { ResultFilter} from "../context/SearchContext";
+import { ResultFilter } from "../context/SearchContext";
 import { SEARCH_ANIME } from "../GraphQL/index";
 import { ListCards } from "./listCards";
 
@@ -19,7 +19,8 @@ function Result() {
     return id === undefined ? {
       page: 1,
       perPage: 25,
-      genreIn: searchParams.get("gener") !== null ? searchParams.get("gener").split(",") : null,
+      // @ts-ignore: Object is possibly 'null'.
+      genreIn: typeof searchParams.get("gener") != null ? searchParams.get("gener").split(",") : null,
       statusIn: searchParams.get("status") ?? [
         "FINISHED",
         "RELEASING",

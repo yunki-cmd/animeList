@@ -9,7 +9,9 @@ function Header() {
   return (
     <header className="flex h-24 justify-around">     
       <div className="justify-start">
-        <Link to="/" ><img className="h-full" src={logo} alt="" /></Link>
+        <Link to="/" >
+          <img className="h-full" src={logo} alt="" />
+        </Link>
       </div>
       <div>
       <Search className="m-auto" />
