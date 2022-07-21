@@ -3,6 +3,7 @@ import { Routes, Route } from "react-router-dom";
 import DetailsCard from "./components/DetailCard";
 import Sinopsis from "./components/details/sinopsis";
 import Header from "./components/header/header";
+import ListCards from "./components/listCards";
 import Result from "./components/result";
 import {SetResultFilter } from "./context/SearchContext";
 import Home from "./view/home";
@@ -14,7 +15,11 @@ function App() {
       <Header />
       <SetResultFilter>
         <Routes>
-        <Route path="/" element={<Home />} />
+          <Route path="/" element={<Home />}>
+            <Route path="/" element={<ListCards />}></Route>
+            <Route path="/:page" element={<ListCards />}></Route>
+          </Route>
+          
           <Route path="/anime/:id" element={<DetailsCard />} >
             <Route path="/anime/:id" element={<Sinopsis />} />
             <Route path="/anime/:id/details" element={<Sinopsis />} />
@@ -24,7 +29,9 @@ function App() {
             <Route path="/anime/:id/soundtrack" element={<h1>soundtrack</h1>} />
           </Route>
           <Route path="/search/" element={<Result />}>
-              <Route path=":id" element={<Result />} />
+            <Route path="/search/" element={<ListCards />}/>
+            <Route path=":id" element={<ListCards />} />
+            <Route path=":id/:page" element={<ListCards />} />
           </Route>
       </Routes>
     </SetResultFilter>

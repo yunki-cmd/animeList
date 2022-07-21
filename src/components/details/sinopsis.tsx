@@ -19,8 +19,6 @@ function Sinopsis() {
     }
   });
 
-  console.log(data);
-
   const urlVideo = (url:string) =>{
       const urlYouTube = "https://www.youtube.com/watch?v=";
       return urlYouTube + url;

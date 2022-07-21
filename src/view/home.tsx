@@ -2,16 +2,18 @@
 /* eslint-disable jsx-a11y/click-events-have-key-events */
 import { useQuery } from "@apollo/client";
 import { useEffect } from "react";
-
-import { ListCards } from "../components/listCards";
+import {Outlet,useParams } from 'react-router-dom'
 import MenuFiltro from "../components/navMenu/MenuFiltro";
 import { ANIME_TRENDINGS_EMISSION } from "../GraphQL/index";
 
 function Home() {
 
 
-
-  const { loading, error, data } = useQuery(ANIME_TRENDINGS_EMISSION);
+  const {page} = useParams()
+  const { loading, error, data } = useQuery(ANIME_TRENDINGS_EMISSION, {
+    variables: {
+      page: page == undefined ? 1 : page
+  }});
   
   useEffect(() => {
     if (data) {
@@ -26,7 +28,11 @@ function Home() {
   return (
     <>
       <MenuFiltro />
-      <ListCards data={data.Page.media}/>
+      <article>
+        <section>
+          <Outlet context={{ data: data.Page.media, page}} />
+        </section>
+      </article>
     </>
   );
 }
