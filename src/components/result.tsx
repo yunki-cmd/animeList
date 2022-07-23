@@ -1,5 +1,5 @@
 import {useLazyQuery} from "@apollo/client";
-import { useState, useEffect, useContext } from "react";
+import { useEffect, useContext } from "react";
 import { Outlet, useParams, useSearchParams } from "react-router-dom";
 
 
@@ -8,13 +8,13 @@ import { SEARCH_ANIME } from "../GraphQL/index";
 
 
 function Result() {
-  const { id,page } = useParams() || " ";
-  const { dispatch } = useContext(ResultFilter);
+  const { id } = useParams() || " ";
+  const { dispatch, state } = useContext(ResultFilter);
   const [searchParams, ] = useSearchParams();
 
-  function formatVaribale(page:string = "1") {
+  function formatVaribale(page:number = 1) {
     return id === undefined ? {
-      page: 1,
+      page: page,
       perPage: 25,
       // @ts-ignore: Object is possibly 'null'.
       genreIn: typeof searchParams.get("gener") != null ? searchParams.get("gener").split(",") : null,
@@ -40,24 +40,31 @@ function Result() {
       startDateGreater: searchParams.get("dateStar") ?? "2022",
       endDateLesser: searchParams.get("dateEnd") ?? "2022",
     } : {
-        page: page ?? 1,
+        page: page,
         perPage: 10,
         search: id
     };
   }
 
-  const [getResult, { loading }] = useLazyQuery(SEARCH_ANIME, { variables: formatVaribale(page) });
-
-  const [datos, setdatos] = useState([]);
+  const [getResult, { loading }] = useLazyQuery(SEARCH_ANIME, { variables: formatVaribale(state.page ?? 1) });
   
   useEffect(() => {
-    getResult().then(resp => {
+    if (id !== state.id) {      
+      getResult().then(resp => {
         const response = resp.data.Page.media;
-        dispatch({ type: "updateDate", payload: { data: response, id } });
-        setdatos(response);
-      });
-    
-  }, [dispatch, getResult, id,page]);
+        console.log('llama?')
+          dispatch({ type: "updateDate", payload: { data: response, id, page : 1  } });
+        });
+    }
+  }, [id]);
+
+  const updateSearchPagination = (page: number) => {
+    getResult({ variables: formatVaribale(page) })
+      .then(resp => {
+        const response = resp.data.Page.media;
+        dispatch({ type: "updateDate", payload: { data: response, id, page} });
+    })
+  }
 
   if (loading) {
     return <div>Loading...</div>;
@@ -67,7 +74,7 @@ function Result() {
   return (
     <>
       <div>result {searchParams.get("gener")}</div>
-      {datos ? <Outlet context={{ data:datos}} /> : "No hay datos" }
+      {state.data ? <Outlet context={{ data: state.data, action: updateSearchPagination, page:state.page }} /> : "No hay datos" }
     </>
   );
 }

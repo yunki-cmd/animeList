@@ -126,7 +126,7 @@ query getAnimeRelation($mediaId: Int, $type: MediaType) {
 
 export const ANIME_TRENDINGS_EMISSION = gql `
 query getListAnimeTrendingEmissions ($page: Int){
-  Page(page: $page, perPage: 25) {
+  Page(page: $page, perPage: 10) {
       pageInfo {
         total perPage currentPage lastPage hasNextPage
         }

@@ -1,25 +1,38 @@
-/* eslint-disable jsx-a11y/no-static-element-interactions */
-/* eslint-disable jsx-a11y/click-events-have-key-events */
-import { useQuery } from "@apollo/client";
+import { useQuery, useLazyQuery } from "@apollo/client";
 import { useEffect } from "react";
-import {Outlet,useParams } from 'react-router-dom'
+import {Outlet } from 'react-router-dom'
 import MenuFiltro from "../components/navMenu/MenuFiltro";
 import { ANIME_TRENDINGS_EMISSION } from "../GraphQL/index";
+import {useContext} from 'react'
+import {trendingContextAnime} from '../context/index'
 
 function Home() {
 
-
-  const {page} = useParams()
+  const { dispatch, tredings } = useContext(trendingContextAnime)
   const { loading, error, data } = useQuery(ANIME_TRENDINGS_EMISSION, {
     variables: {
-      page: page == undefined ? 1 : page
-  }});
+      page: tredings.page
+    }
+  });
+  
+  const [updateTrendings,] = useLazyQuery(ANIME_TRENDINGS_EMISSION)
+
+  function updateTrending(pageProps: number) {
+    updateTrendings({ variables: { page: pageProps } })
+      .then(resp => {
+        dispatch({ type: 'updateData', payload: { data: resp.data.Page.media, page: pageProps } })
+      }).catch(err => {
+      console.log(err)
+    });
+  }
   
   useEffect(() => {
     if (data) {
-      sessionStorage.setItem("tredings", JSON.stringify(data.Page.media));
+      dispatch({ type: 'updateData', payload: { data: data.Page.media, page: tredings.page } })
     }
   }, [data]);
+
+
 
   if (loading) {
     return <h1>Loading...</h1>;
@@ -30,7 +43,7 @@ function Home() {
       <MenuFiltro />
       <article>
         <section>
-          <Outlet context={{ data: data.Page.media, page}} />
+          <Outlet context={{ data: tredings.data, page: tredings.page, action: updateTrending }} />
         </section>
       </article>
     </>
