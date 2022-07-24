@@ -2,8 +2,6 @@ import Cards from "./Cards";
 import Pagination from "./pagination";
 // eslint-disable-next-line react/prop-types
 import { useOutletContext} from "react-router-dom"
-import { useEffect } from "react";
-
 export function ListCards() {
 
   const { data, page, action } = useOutletContext<any>()

@@ -24,27 +24,29 @@ function Cards({ titles = {native : 'no title avaible'}, cover_image ="",id = 1,
   function title(titleParams: GenericObject) {
     if (titleParams != null) {    
       if (titleParams.english) {
-        return <span className="m-2 text-xl font-bold tracking-tight text-gray-900 dark:text-white text-center">{titleParams.english}</span>;
+        return <span className="text-sm tracking-tight text-[#748899] leading-5 font-sans bg-white my-2">{titleParams.english}</span>;
       } if (titleParams.romaji) {
-        return <span className="m-2 text-xl font-bold tracking-tight text-gray-900 dark:text-white text-center">{titleParams.romaji
+        return <span className="text-sm tracking-tight text-[#748899] leading-5 font-sans bg-white my-2">{titleParams.romaji
         }</span>;
       }
-      return <span className="m-2 text-xl font-bold tracking-tight text-gray-900 dark:text-white text-center">{titleParams.native
+      return <span className="text-sm tracking-tight text-[#748899] leading-5 font-sans bg-white my-2">{titleParams.native
       }</span>;
     }
   }
 
   return (
-    <Link to={{ pathname: `/anime/${id}` }}>
-      <div className={type === 'ANIME' ? "max-w-lg h-auto my-5 break-inside-avoid bg-white rounded-lg border border-gray-200 shadow-md dark:bg-gray-800 dark:border-gray-700 flex flex-col transform transition duration-500 hover:scale-110 hover:relative gap-4" : 'max-w-lg h-auto my-5 break-inside-avoid bg-yellow-100 rounded-lg border border-gray-200 shadow-md dark:bg-gray-800 dark:border-gray-700 flex flex-col transform transition duration-500 hover:scale-110 hover:relative'}>
-        {title(titles)}
-        <div className="p-2">
-          <div className="">
-            <img className="rounded-lg object-contain m-auto" src={cover_image} alt={titles.english} />
-          </div>
+    <div className={type === 'ANIME' ? "w-56 break-inside-avoid bg-white rounded-lg" : 'w-56 break-inside-avoid bg-yellow-100 rounded-lg'}>
+      <Link to={{ pathname: `/anime/${id}` }}>        
+        <div className="h-4/5">
+            <img className="rounded-lg object-cover w-full h-full" src={cover_image} alt={titles.english} />
         </div>
-      </div>
-    </Link>
+      </Link>
+      <Link to={{ pathname: `/anime/${id}` }}>
+        <div className="flex justify-center">
+          {title(titles)}
+        </div>
+      </Link>
+    </div>
   );
 }
 

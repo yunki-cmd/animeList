@@ -6,7 +6,14 @@ module.exports = {
     './src/index.html'
   ],
   theme: {
-    extend: {}
+    extend: {
+      color: {
+        'blueGray': {
+          '100': '#f1f5f9',
+          '500': '#748899'
+        },
+      },
+    }
   },
   plugins: []
 };
