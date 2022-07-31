@@ -34,8 +34,12 @@ function Cards({ titles = {native : 'no title avaible'}, cover_image ="",id = 1,
     }
   }
 
+  function mouseEnter(e: React.MouseEvent<HTMLDivElement>) {
+    
+  }
+
   return (
-    <div className={type === 'ANIME' ? "w-56 break-inside-avoid bg-white rounded-lg" : 'w-56 break-inside-avoid bg-yellow-100 rounded-lg'}>
+    <div onMouseEnter={mouseEnter} className={type === 'ANIME' ? "w-56 break-inside-avoid bg-white rounded-lg" : 'w-56 break-inside-avoid bg-yellow-100 rounded-lg'}>
       <Link to={{ pathname: `/anime/${id}` }}>        
         <div className="h-4/5">
             <img className="rounded-lg object-cover w-full h-full" src={cover_image} alt={titles.english} />

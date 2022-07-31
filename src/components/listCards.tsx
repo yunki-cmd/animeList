@@ -6,6 +6,15 @@ export function ListCards() {
 
   const { data, page, action } = useOutletContext<any>()
 
+  if (data.length === 0) { 
+    return (
+      <div>
+        no hay datos
+        <Pagination className="mb-8" page={page} action={action} />
+      </div>
+    )
+  }
+
   return (
     <>    
       <div className="grid sm:grid-cols-1 md:grid-cols-3 lg:grid-cols-4  xl:grid-cols-5 gap-5 m-2 p-5">

@@ -2,6 +2,7 @@ import { useQuery, useLazyQuery } from "@apollo/client";
 import { useEffect } from "react";
 import {Outlet } from 'react-router-dom'
 import MenuFiltro from "../components/navMenu/MenuFiltro";
+import FormFilter from "../components/navMenu/FormFiltro"
 import { ANIME_TRENDINGS_EMISSION } from "../GraphQL/index";
 import {useContext} from 'react'
 import {trendingContextAnime} from '../context/index'
@@ -41,6 +42,7 @@ function Home() {
   return (
     <>
       <MenuFiltro />
+      <FormFilter />
       <article>
         <section>
           <Outlet context={{ data: tredings.data, page: tredings.page, action: updateTrending }} />

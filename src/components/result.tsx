@@ -58,6 +58,13 @@ function Result() {
     }
   }, [id]);
 
+  useEffect(() => {
+      getResult().then(resp => {
+        const response = resp.data.Page.media;
+        dispatch({ type: "updateDate", payload: { data: response, id, page: 1 } });
+      });
+  }, []);
+
   const updateSearchPagination = (page: number) => {
     getResult({ variables: formatVaribale(page) })
       .then(resp => {
